@@ -1,0 +1,50 @@
+Tips pour faire le test technique :
+
+Installation des outils sur linux (ex. sur Ubuntu)
+
+Installer python 3.10 par les commandes :
+> sudo apt-get update
+> sudo apt-get upgrade
+> sudo apt-get install python3-pip
+> sudo apt-get install python3-venv
+> sudo update-alternatives --install /usr/bin/python python /usr/bin/python3 10
+
+Installation de PostgreSQL :
+> sudo apt-get install postgresql
+> sudo apt-get install postgresql-server-dev-14 -y
+> sudo vi /etc/postgresql/14/main/pg_hba.conf
+
+Création de la base de données 'tech_test' sur postgres et d'un utilisateur 'candidat' :
+> sudo systemctl restart postgresql
+> sudo su postgres
+> psql
+> =# create user candidat encrypted password '....';
+> =# create database tech_test owner candidat;
+> =# \q
+> exit
+
+Créer un dossier pour notre projet :
+> cd ~
+> mkdir test_technique
+> cd test_technique
+
+Création de notre environnement de travail python et s'y connecter :
+> python -m venv env
+> source env/bin/activate
+
+Création d'un suivi git et empecher le suivi du dossier env :
+> git init
+> echo "env" > .gitignore
+
+Installer django et drf :
+> pip install django==4.2.6
+> pip install djangorestframework==3.14.0
+
+Pensez à enregistrer souvent vos packages installés sur un ficheir requirements.txt par :
+> pip freeze > requirements.txt
+
+Pour installer elasticsearch et le plugin pour django:
+> pip install elasticsearch==8.11.0
+> pip install elasticsearch-dsl==8.11.0
+> pip install django-elasticsearch-dsl==8.0 
+puis voir docs (https://testdriven.io/blog/django-drf-elasticsearch/)
