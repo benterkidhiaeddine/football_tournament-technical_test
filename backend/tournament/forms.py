@@ -1,16 +1,16 @@
 from tournament.models import Equipe, Joueur
-# Create the form for create a team
-class CreateEquipeForm(forms.ModelForm):
+from django import forms
+
+# Equipe Forms
+class EquipeForm(forms.ModelForm):
     class Meta:
         model = Equipe
-        fields = ['nom', 'ville']
+        fields = ["id", "nom", "ville"]
 
-        
 
-# Create the form for create a player
-class CreateJoueurForm(forms.ModelForm):
+# Joueur Forms
+class JoueurForm(forms.ModelForm):
+    
     class Meta:
         model = Joueur
-        fields = ['nom', 'poste']
-
-
+        fields = ["id", "nom", "poste"]

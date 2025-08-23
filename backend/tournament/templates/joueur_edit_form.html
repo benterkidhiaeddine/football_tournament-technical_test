@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block title %}Modifier un Joueur{% endblock %}
+{% block content %}
+<h2>Modifier le Joueur</h2>
+<form method="post" class="mt-3" action="{% url 'joueur_edit' joueur.id %}" >
+    {% csrf_token %}
+    <div class="mb-3">
+        <label for="id_nom" class="form-label">Nom</label>
+        <input type="text" class="form-control" id="id_nom" name="nom" value="{{ form.nom.value }}" required>
+    </div>
+    <div class="mb-3">
+        <label for="id_post" class="form-label">Poste</label>
+        <select name="poste" id="id_post" class="form-select" required>
+            <option value="">Choisir un poste</option>
+            {% for poste in choices %}
+                <option value="{{ poste.0 }}" {% if form.poste.value == poste.0 %}selected{% endif %}>{{ poste.1 }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <button type="submit" class="btn btn-success">Modifier</button>
+    <a href="{% url 'joueur_list' %}" class="btn btn-secondary">Annuler</a>
+</form>
+{% endblock %}

@@ -1,5 +1,5 @@
 {
-	"workspaceFolder": "/usr/src/app",
+	"workspaceFolder": "/usr/src/backend",
 	"extensions": [
 		"batisteo.vscode-django",
 		"donjayamanne.python-environment-manager",

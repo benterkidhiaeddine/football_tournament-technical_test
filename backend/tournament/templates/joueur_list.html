@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% block title %}Joueurs{% endblock %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h2>Liste des Joueurs</h2>
+    <a href="{% url 'joueur_create' %}" class="btn btn-primary">Ajouter un Joueur</a>
+</div>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nom</th>
+            <th>Poste</th>
+            <th>Date de création</th>
+            <th>Date de modification</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for joueur in joueurs %}
+        <tr>
+            <td><a href="{% url 'joueur_edit' joueur.id %}">{{ joueur.id }}</a></td>
+            <td>{{ joueur.nom }}</td>
+            <td>{{ joueur.get_poste_display }}</td>
+            <td>{{ joueur.created_at }}</td>
+            <td>{{ joueur.updated_at }}</td>
+            <td>
+                <form method="post" action="{% url 'joueur_delete' joueur.id %}" style="display:inline;">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger btn-sm">Supprimer</button>
+                </form>
+            </td>
+
+       
+        </tr>
+        {% empty %}
+        <tr><td colspan="5">Aucun joueur trouvé.</td></tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
