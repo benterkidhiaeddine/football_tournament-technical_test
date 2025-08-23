@@ -16,6 +16,18 @@
                 <option value="{{ poste.0 }}">{{ poste.1 }}</option>
             {% endfor %}
         </select>
+        <div class="invalid-feedback">
+            {{ form.poste.errors }}
+        </div>
+        <select name="equipe" id="id_equipe" class="form-select" required>
+            <option value="">Choisir une équipe</option>
+            {% for equipe in equipes %}
+                <option value="{{ equipe.id }}">{{ equipe.nom }}</option>
+            {% endfor %}
+        </select>
+        <div class="invalid-feedback">
+            {{ form.equipe.errors }}
+        </div>
     </div>
     <button type="submit" class="btn btn-success">Créer</button>
     <a href="{% url 'joueur_list' %}" class="btn btn-secondary">Annuler</a>

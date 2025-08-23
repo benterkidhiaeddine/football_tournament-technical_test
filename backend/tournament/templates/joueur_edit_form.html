@@ -16,6 +16,21 @@
                 <option value="{{ poste.0 }}" {% if form.poste.value == poste.0 %}selected{% endif %}>{{ poste.1 }}</option>
             {% endfor %}
         </select>
+        {% for error in form.poste.errors %}
+            <div class="alert alert-danger mt-2">{{ error }}</div>
+        {% endfor %}
+    </div>
+    <div class="mb-3">
+        <label for="id_equipe" class="form-label">Équipe</label>
+        <select name="equipe" id="id_equipe" class="form-select" required>
+            <option value="">Choisir une équipe</option>
+            {% for equipe in equipes %}
+                <option value="{{ equipe.id }}" {% if form.equipe.value == equipe.id %}selected{% endif %}>{{ equipe.nom }}</option>
+            {% endfor %}
+        </select>
+        {% for error in form.equipe.errors %}
+            <div class="alert alert-danger mt-2">{{ error }}</div>
+        {% endfor %}
     </div>
     <button type="submit" class="btn btn-success">Modifier</button>
     <a href="{% url 'joueur_list' %}" class="btn btn-secondary">Annuler</a>

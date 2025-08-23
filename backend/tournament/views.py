@@ -51,6 +51,7 @@ def equipe_delete(request, pk):
 # view for creating joueur
 def joueur_create(request):
     choices = Joueur.Post.choices
+    equipes = Equipe.objects.all()
     if request.method == "POST":
         form = JoueurForm(request.POST)
         if form.is_valid():
@@ -58,11 +59,11 @@ def joueur_create(request):
             return redirect("joueur_list")
         else:
             form.add_error(None, "Veuillez corriger les erreurs ci-dessous.")
-            return render(request, "joueur_create_form.html", {"form": form, "choices": choices})
+            return render(request, "joueur_create_form.html", {"form": form, "choices": choices, "equipes": equipes})
     else:
         form = JoueurForm()
 
-    return render(request, "joueur_create_form.html", {"form": form, "choices": choices})
+    return render(request, "joueur_create_form.html", {"form": form, "choices": choices, "equipes": equipes})
 
 
 # view for listing joueurs
@@ -75,17 +76,15 @@ def joueur_list(request):
 def joueur_edit(request, pk):
     joueur = get_object_or_404(Joueur, pk=pk)
     choices = Joueur.Post.choices
+    equipes = Equipe.objects.all()
     if request.method == "POST":
         form = JoueurForm(request.POST, instance=joueur)
         if form.is_valid():
             form.save()
             return redirect("joueur_list")
-        else:
-            form.add_error(None, "Veuillez corriger les erreurs ci-dessous.")
-            return render(request, "joueur_edit_form.html", {"form": form, "choices": choices})
     else:
         form = JoueurForm(instance=joueur)
-    return render(request, "joueur_edit_form.html", {"form": form, "choices": choices , "joueur": joueur    })
+    return render(request, "joueur_edit_form.html", {"form": form, "choices": choices, "joueur": joueur, "equipes": equipes})
 
 
 # view for deleting joueurs

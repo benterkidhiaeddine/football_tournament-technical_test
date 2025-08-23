@@ -11,6 +11,7 @@
             <th>ID</th>
             <th>Nom</th>
             <th>Ville</th>
+            <th>Nombre de joueurs</th>
             <th>Date de création</th>
             <th>Date de modification</th>
         </tr>
@@ -18,9 +19,10 @@
     <tbody>
         {% for equipe in equipes %}
         <tr>
-            <td><a href="{% url 'equipe_edit' equipe.id %}">{{ equipe.id }}</a></td>
+            <td>{{ equipe.id }}</td>
             <td>{{ equipe.nom }}</td>
             <td>{{ equipe.ville }}</td>
+            <td>{{ equipe.joueurs.count }}</td>
             <td>{{ equipe.created_at }}</td>
             <td>{{ equipe.updated_at }}</td>
             <td>
@@ -29,6 +31,7 @@
                     <button type="submit" class="btn btn-danger btn-sm">Supprimer</button>
                 </form>
             </td>
+            <td><a href="{% url 'equipe_edit' equipe.id %}" class="btn btn-info btn-sm">Modifier</a></td>
         </tr>
         {% empty %}
         <tr><td colspan="5">Aucune équipe trouvée.</td></tr>
