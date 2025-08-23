@@ -38,6 +38,8 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     # Add your apps here
     "tournament",
+    "api",
+    "rest_framework"
 ]
 
 MIDDLEWARE = [
