@@ -26,7 +26,7 @@ cp .env.dev.example .env.dev
 make up
 ```
 
-This will build and start the web, db, and elasticsearch containers.
+This will build and start the web, db containers.
 
 ## 4. Apply Database Migrations
 
@@ -36,7 +36,7 @@ make migrate
 
 ## 5. (Optional) Seed the Database
 
-If you have custom management commands for seeding:
+To populate the database with randome team and players
 
 ```
 make seed
