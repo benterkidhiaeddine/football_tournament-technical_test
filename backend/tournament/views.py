@@ -7,6 +7,11 @@ from tournament.services import update_equipes_points
 # Create your views here.
 
 
+# home view
+def home(request):
+    return render(request, "home.html")
+
+
 # Equipe views
 # view for creating equipe
 def equipe_create(request):

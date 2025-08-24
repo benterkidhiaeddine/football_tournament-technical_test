@@ -4,6 +4,7 @@ from tournament import views
 urlpatterns = [
     # Define your app routes here
     # equipe urls
+    path("", views.home, name="home"),
     path("equipes/", views.equipe_list, name="equipe_list"),
     path("equipes/create/", views.equipe_create, name="equipe_create"),
     path("equipes/<int:pk>/edit/", views.equipe_edit, name="equipe_edit"),
