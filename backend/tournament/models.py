@@ -69,7 +69,6 @@ class Joueur(TimeStampModel):
             if count >= 11:
                 raise ValidationError(_("Cette équipe a déjà 11 joueurs."))
         super().save(*args, **kwargs)
-
     def __str__(self):
         # make sure it's unique using the id
         return f"{self.nom} ({self.id})"
