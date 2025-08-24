@@ -22,6 +22,7 @@ urlpatterns = [
         views.JoueurViewSet.as_view({"get": "list", "post": "create"}),
         name="api_joueur_list",
     ),
+
     path(
         "joueurs/<int:pk>/",
         views.JoueurViewSet.as_view(
@@ -44,9 +45,4 @@ urlpatterns = [
     ),
     # classement
     path("classement/", views.ClassementAPIView.as_view(), name="api_classement"),
-    path(
-        "joueurs/",
-        views.JoueurViewSet.as_view({"get": "list", "post": "create"}),
-        name="api_joueur_list",
-    ),
 ]

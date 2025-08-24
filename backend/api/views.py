@@ -63,10 +63,3 @@ class ClassementAPIView(generics.ListAPIView):
 
     def get_queryset(self):
         return Equipe.objects.all().order_by("-points", "-buts_marques")
-
-
-@api_view(["GET"])
-def classement(request):
-    equipes = Equipe.objects.all().order_by("-points", "-buts_marques")
-    serializer = EquipeSerializer(equipes, many=True)
-    return Response(serializer.data)
