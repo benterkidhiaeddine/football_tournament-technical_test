@@ -29,4 +29,24 @@ urlpatterns = [
         ),
         name="api_joueur_detail",
     ),
+    # match urls
+    path(
+        "matchs/",
+        views.MatchViewSet.as_view({"get": "list", "post": "create"}),
+        name="api_match_list",
+    ),
+    path(
+        "matchs/<int:pk>/",
+        views.MatchViewSet.as_view(
+            {"get": "retrieve", "put": "update", "delete": "destroy"}
+        ),
+        name="api_match_detail",
+    ),
+    # classement
+    path("classement/", views.ClassementAPIView.as_view(), name="api_classement"),
+    path(
+        "joueurs/",
+        views.JoueurViewSet.as_view({"get": "list", "post": "create"}),
+        name="api_joueur_list",
+    ),
 ]

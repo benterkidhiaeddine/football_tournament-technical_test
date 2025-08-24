@@ -1,6 +1,8 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from tournament.models import Equipe, Joueur
-from tournament.forms import EquipeForm, JoueurForm
+from tournament.models import Equipe, Joueur, Match
+from tournament.forms import EquipeForm, JoueurForm, MatchForm
+from tournament.services import update_equipes_points
+
 
 # Create your views here.
 
@@ -107,3 +109,91 @@ def joueur_delete(request, pk):
     if request.method == "POST":
         joueur.delete()
         return redirect("joueur_list")
+
+
+# Match view
+
+
+# create match view
+def match_create(request):
+    equipes = Equipe.objects.all()
+    if request.method == "POST":
+        form = MatchForm(request.POST)
+        if form.is_valid():
+            form.save()
+
+            update_equipes_points(
+                form.cleaned_data["equipe_1"],
+                form.cleaned_data["equipe_2"],
+                form.cleaned_data["score_equipe_1"],
+                form.cleaned_data["score_equipe_2"],
+            )
+            return redirect("match_list")
+        else:
+            print(form.errors)
+            return render(
+                request, "match_create_form.html", {"form": form, "equipes": equipes}
+            )
+    else:
+        form = MatchForm()
+    return render(request, "match_create_form.html", {"form": form, "equipes": equipes})
+
+
+def match_list(request):
+    matches = Match.objects.all()
+    return render(request, "match_list.html", {"matches": matches})
+
+
+def match_edit(request, pk):
+    equipes = Equipe.objects.all()
+    match = get_object_or_404(Match, pk=pk)
+    if request.method == "POST":
+        form = MatchForm(request.POST, instance=match)
+        if form.is_valid():
+            form.save()
+
+            update_equipes_points(
+                form.cleaned_data["equipe_1"],
+                form.cleaned_data["equipe_2"],
+                form.cleaned_data["score_equipe_1"],
+                form.cleaned_data["score_equipe_2"],
+            )
+            return redirect("match_list")
+        else:
+            return render(
+                request,
+                "match_edit_form.html",
+                {"form": form, "match": match, "equipes": equipes},
+            )
+    else:
+        form = MatchForm(instance=match)
+    return render(
+        request,
+        "match_edit_form.html",
+        {"form": form, "match": match, "equipes": equipes},
+    )
+
+
+def match_delete(request, pk):
+    match = get_object_or_404(Match, pk=pk)
+    if request.method == "POST":
+
+        # if the match is deleted
+        update_equipes_points(
+            match.equipe_1,
+            match.equipe_2,
+            match.score_equipe_1,
+            match.score_equipe_2,
+            match_deleted=True,
+        )
+        match.delete()
+
+        return redirect("match_list")
+
+
+# vue pour le classement
+
+
+def classement(request):
+    equipes = Equipe.objects.all().order_by("-points", "-buts_marques")
+    return render(request, "classement.html", {"equipes": equipes})

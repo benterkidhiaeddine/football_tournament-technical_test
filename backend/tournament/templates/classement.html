@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block title %}Classement{% endblock %}
+{% block content %}
+<h2>Classement des équipes</h2>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Position</th>
+            <th>Nom</th>
+            <th>Ville</th>
+            <th>Points</th>
+            <th>Buts marqués</th>
+            <th>Buts reçus</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for equipe in equipes %}
+        <tr>
+            <td>{{ forloop.counter }}</td>
+            <td>{{ equipe.nom }}</td>
+            <td>{{ equipe.ville }}</td>
+            <td>{{ equipe.points }}</td>
+            <td>{{ equipe.buts_marques }}</td>
+            <td>{{ equipe.buts_recus }}</td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="6">Aucune équipe trouvée.</td></tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

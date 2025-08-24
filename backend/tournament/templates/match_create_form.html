@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% block title %}Ajouter un Match{% endblock %}
+{% block content %}
+<h2>Ajouter un Match</h2>
+<form method="post" class="mt-3" action="{% url 'match_create' %}">
+    {% csrf_token %}
+    <div class="mb-3">
+        <label for="id_equipe1" class="form-label">Equipe 1</label>
+        <select name="equipe_1" id="id_equipe1" class="form-select" required>
+            <option value="">Choisir une équipe</option>
+            {% for equipe in equipes %}
+                <option value="{{ equipe.id }}" {% if form.equipe1.value == equipe.id %}selected{% endif %}>{{ equipe.nom }}</option>
+            {% endfor %}
+        </select>
+        {% if form.equipe1.errors %}
+        <div class="alert alert-danger mt-2">
+            {{ form.equipe1.errors }}
+        </div>
+        {% endif %}
+    </div>
+    <div class="mb-3">
+        <label for="id_equipe_2" class="form-label">Equipe 2</label>
+        <select name="equipe_2" id="id_equipe_2" class="form-select" required>
+            <option value="">Choisir une équipe</option>
+            {% for equipe in equipes %}
+                <option value="{{ equipe.id }}" {% if form.equipe2.value == equipe.id %}selected{% endif %}>{{ equipe.nom }}</option>
+            {% endfor %}
+        </select>
+        {% if form.equipe2.errors %}
+        <div class="alert alert-danger mt-2">
+            {{ form.equipe2.errors }}
+        </div>
+        {% endif %}
+    </div>
+
+    <div class="mb-3">
+        <label for="id_score_equipe_1" class="form-label">Score Équipe 1</label>
+        <input type="text" class="form-control" id="id_score_equipe_1" name="score_equipe_1" value="{{ form.score_equipe_1.value }}">
+        {% if form.score_equipe_1.errors %}
+        <div class="alert alert-danger mt-2">
+            {{ form.score_equipe_1.errors }}
+        </div>
+        {% endif %}
+    </div>
+    <div class="mb-3">
+        <label for="id_score_equipe_2" class="form-label">Score Équipe 2</label>
+        <input type="text" class="form-control" id="id_score_equipe_2" name="score_equipe_2" value="{{ form.score_equipe_2.value }}">
+        {% if form.score_equipe_2.errors %}
+        <div class="alert alert-danger mt-2">
+            {{ form.score_equipe_2.errors }}
+        </div>
+        {% endif %}
+    </div>
+    {% if form.non_field_errors %}
+    <div class="alert alert-danger mt-2">
+        {{ form.non_field_errors }}
+    </div>
+
+
+    {% endif %}
+    <button type="submit" class="btn btn-success">Créer</button>
+    <a href="{% url 'match_list' %}" class="btn btn-secondary">Annuler</a>
+</form>
+{% endblock %}

@@ -1,6 +1,6 @@
 from django import forms
 from django.utils.translation import gettext_lazy as _
-from tournament.models import Equipe, Joueur
+from tournament.models import Equipe, Joueur, Match
 
 
 # Equipe Forms
@@ -23,3 +23,13 @@ class JoueurForm(forms.ModelForm):
         if equipe and equipe.joueurs.count() >= 11:
             raise forms.ValidationError(_("Cette équipe a déjà 11 joueurs."))
         return equipe
+
+
+# Match forms
+
+
+class MatchForm(forms.ModelForm):
+
+    class Meta:
+        model = Match
+        fields = ["id", "equipe_1", "equipe_2", "score_equipe_1", "score_equipe_2"]
