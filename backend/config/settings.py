@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     # Add your apps here
+    "drf_yasg",
     "tournament",
     "api",
     "rest_framework",
@@ -136,3 +137,5 @@ REST_FRAMEWORK = {
     "PAGE_SIZE": 25,
 }
 
+
+STATIC_ROOT = BASE_DIR / "staticfiles"

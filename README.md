@@ -63,3 +63,16 @@ make down
 # Makefile Commands
 
 See the `Makefile` in the project root for all available shortcuts.
+
+---
+
+# API Documentation
+
+This project uses [drf-yasg](https://drf-yasg.readthedocs.io/) to provide interactive API documentation.
+
+Once the server is running, you can access the documentation at:
+
+- Swagger UI: [http://localhost:8000/swagger/](http://localhost:8000/swagger/)
+- Redoc UI: [http://localhost:8000/redoc/](http://localhost:8000/redoc/)
+
+These interfaces allow you to explore and test the API endpoints directly from your browser.
