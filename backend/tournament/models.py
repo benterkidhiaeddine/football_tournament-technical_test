@@ -69,6 +69,7 @@ class Joueur(TimeStampModel):
             if count >= 11:
                 raise ValidationError(_("Cette équipe a déjà 11 joueurs."))
         super().save(*args, **kwargs)
+
     def __str__(self):
         # make sure it's unique using the id
         return f"{self.nom} ({self.id})"
@@ -76,10 +77,6 @@ class Joueur(TimeStampModel):
 
 class Match(TimeStampModel):
     def clean(self):
-        # Prevent a match with the same teams in any order
-        if self.equipe_1 == self.equipe_2:
-
-            raise ValidationError("Une équipe ne peut pas jouer contre elle-même.")
         # Check for existing match with same teams in any order
         existing = Match.objects.filter(
             models.Q(equipe_1=self.equipe_1, equipe_2=self.equipe_2)
@@ -105,11 +102,13 @@ class Match(TimeStampModel):
             models.CheckConstraint(
                 check=models.Q(score_equipe_1__gte=0) & models.Q(score_equipe_2__gte=0),
                 name="scores can't be negative",
+                violation_error_message="Les scores ne peuvent pas être négatifs.",
             ),
             # A team can't play against itself
             models.CheckConstraint(
                 check=~models.Q(equipe_1=models.F("equipe_2")),
                 name="different_teams",
+                violation_error_message="Une équipe ne peut pas jouer contre elle-même.",
             ),
         ]
 
