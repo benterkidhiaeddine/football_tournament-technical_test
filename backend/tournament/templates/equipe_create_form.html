@@ -6,12 +6,23 @@
     {% csrf_token %}
     <div class="mb-3">
         <label for="id_nom" class="form-label">Nom</label>
-        <input type="text" class="form-control" id="id_nom" name="nom" required>
+        <input type="text" class="form-control" id="id_nom" name="nom">
     </div>
+    {% if form.nom.errors %}
+    <div class="alert alert-danger">
+        {{ form.nom.errors }}
+    </div>
+    {% endif %}
     <div class="mb-3">
         <label for="id_ville" class="form-label">Ville</label>
-        <input type="text" class="form-control" id="id_ville" name="ville" required>
+        <input type="text" class="form-control" id="id_ville" name="ville">
     </div>
+    {% if form.ville.errors %}
+    <div class="alert alert-danger">
+        {{ form.ville.errors }}
+    </div>
+    {% endif %}
+
     <button type="submit" class="btn btn-success">Créer</button>
     <a href="{% url 'equipe_list' %}" class="btn btn-secondary">Annuler</a>
 </form>

@@ -17,7 +17,9 @@ class Equipe(TimeStampModel):
     ville = models.CharField(max_length=100)
 
     def clean(self):
-        if self.joueurs.count() >= 11:
+        # Checking for the existance of the id because when the instance is being created for the first time
+        # this method is called and the id dosen't exist which will cause an error
+        if self.id and self.joueurs.count() >= 11:
             raise ValidationError(_("Une équipe ne peut pas avoir plus de 11 joueurs."))
         return super().clean()
 
@@ -55,7 +57,8 @@ class Joueur(TimeStampModel):
         ]
 
     def save(self, *args, **kwargs):
-        self.equipe.full_clean()
+        if self.equipe:
+            self.equipe.full_clean()
         super().save(*args, **kwargs)
 
     def __str__(self):

@@ -1,10 +1,11 @@
-from django.shortcuts import render,redirect, get_object_or_404
+from django.shortcuts import render, redirect, get_object_or_404
 from tournament.models import Equipe, Joueur
 from tournament.forms import EquipeForm, JoueurForm
+
 # Create your views here.
 
 
-# Equipe views 
+# Equipe views
 # view for creating equipe
 def equipe_create(request):
     if request.method == "POST":
@@ -42,11 +43,10 @@ def equipe_delete(request, pk):
     if request.method == "POST":
         equipe.delete()
         return redirect("equipe_list")
-    return render(request, "equipe_confirm_delete.html", {"equipe": equipe})
-
 
 
 # Joueur Views
+
 
 # view for creating joueur
 def joueur_create(request):
@@ -58,12 +58,22 @@ def joueur_create(request):
             form.save()
             return redirect("joueur_list")
         else:
-            form.add_error(None, "Veuillez corriger les erreurs ci-dessous.")
-            return render(request, "joueur_create_form.html", {"form": form, "choices": choices, "equipes": equipes})
+            print("form is not valid")
+            print(form.errors)
+            return render(
+                request,
+                "joueur_create_form.html",
+                {"form": form, "choices": choices, "equipes": equipes},
+            )
+
     else:
         form = JoueurForm()
 
-    return render(request, "joueur_create_form.html", {"form": form, "choices": choices, "equipes": equipes})
+    return render(
+        request,
+        "joueur_create_form.html",
+        {"form": form, "choices": choices, "equipes": equipes},
+    )
 
 
 # view for listing joueurs
@@ -84,7 +94,11 @@ def joueur_edit(request, pk):
             return redirect("joueur_list")
     else:
         form = JoueurForm(instance=joueur)
-    return render(request, "joueur_edit_form.html", {"form": form, "choices": choices, "joueur": joueur, "equipes": equipes})
+    return render(
+        request,
+        "joueur_edit_form.html",
+        {"form": form, "choices": choices, "joueur": joueur, "equipes": equipes},
+    )
 
 
 # view for deleting joueurs
@@ -93,4 +107,3 @@ def joueur_delete(request, pk):
     if request.method == "POST":
         joueur.delete()
         return redirect("joueur_list")
-    return render(request, "joueur_confirm_delete.html", {"joueur": joueur})

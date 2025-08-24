@@ -22,7 +22,7 @@
     </div>
     <div class="mb-3">
         <label for="id_equipe" class="form-label">Équipe</label>
-        <select name="equipe" id="id_equipe" class="form-select" required>
+        <select name="equipe" id="id_equipe" class="form-select" >
             <option value="">Choisir une équipe</option>
             {% for equipe in equipes %}
                 <option value="{{ equipe.id }}" {% if form.equipe.value == equipe.id %}selected{% endif %}>{{ equipe.nom }}</option>
@@ -32,6 +32,11 @@
             <div class="alert alert-danger mt-2">{{ error }}</div>
         {% endfor %}
     </div>
+    {% if form.non_field_errors %}
+    <div class="alert alert-danger mt-2">
+        {{ form.non_field_errors }}
+    </div>
+    {% endif %}
     <button type="submit" class="btn btn-success">Modifier</button>
     <a href="{% url 'joueur_list' %}" class="btn btn-secondary">Annuler</a>
 </form>

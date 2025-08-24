@@ -6,29 +6,45 @@
     {% csrf_token %}
     <div class="mb-3">
         <label for="id_nom" class="form-label">Nom</label>
-        <input type="text" class="form-control" id="id_nom" name="nom" required>
+        <input type="text" class="form-control" id="id_nom" name="nom" >
     </div>
+    {% if form.nom.errors %}
+    <div class="alert alert-danger">
+        {{ form.nom.errors }}
+    </div>
+    {% endif %}
     <div class="mb-3">
-        <label for="id_post" class="form-label">Poste</label>
-        <select name="poste" id="id_post" class="form-select" required>
+        <label for="id_post" class="form-label mb-2">Poste</label>
+        <select name="poste" id="id_post" class="form-select mb-3" >
             <option value="">Choisir un poste</option>
             {% for poste in choices %}
                 <option value="{{ poste.0 }}">{{ poste.1 }}</option>
             {% endfor %}
         </select>
-        <div class="invalid-feedback">
+        {% if form.poste.errors %}
+        <div class="alert alert-danger mt-2">
             {{ form.poste.errors }}
         </div>
-        <select name="equipe" id="id_equipe" class="form-select" required>
+        {% endif %}
+        <label for="id_equipe" class="form-label mb-2">Équipe</label>
+        <select name="equipe" id="id_equipe" class="form-select mb-3" >
             <option value="">Choisir une équipe</option>
             {% for equipe in equipes %}
                 <option value="{{ equipe.id }}">{{ equipe.nom }}</option>
             {% endfor %}
         </select>
-        <div class="invalid-feedback">
+        {% if form.equipe.errors %}
+        <div class="alert alert-danger mt-2">
             {{ form.equipe.errors }}
         </div>
+        {% endif %}
     </div>
+
+    {% if form.non_field_errors %}
+    <div class="alert alert-danger mt-2">
+        {{ form.non_field_errors }}
+    </div>
+    {% endif %}
     <button type="submit" class="btn btn-success">Créer</button>
     <a href="{% url 'joueur_list' %}" class="btn btn-secondary">Annuler</a>
 </form>
