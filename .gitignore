@@ -208,3 +208,6 @@ __marimo__/
 
 # .vscode-server
 .vscode-server/
+
+# static files
+staticfiles/
