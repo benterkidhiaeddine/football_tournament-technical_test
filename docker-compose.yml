@@ -2,7 +2,6 @@ version: "3.8"
 
 services:
   web:
-    container_name: web
     build: ./backend
     volumes:
       - ./backend/:/usr/src/backend/
@@ -16,7 +15,6 @@ services:
       - db
 
   db:
-    container_name: db
     image: postgres:15
     volumes:
       - postgres_dev_data:/var/lib/postgresql/data
